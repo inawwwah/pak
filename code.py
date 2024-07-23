@@ -3,15 +3,19 @@ from scipy.io import wavfile
 import os
 
 def read_newlabfile(filename, newfile):
+    save_path=f'/Users/julieyiu/pak/pak/labfiles/old'
     ## Reading label file
-    f = open(filename, "r")
+    completeName = os.path.join(save_path, filename)
+    f = open(completeName, "r")
     fr=f.readlines()
 
     for line in fr:
         if "junk" or "lab1" in line:
             fr.remove(line)
 
-    newfile = open(newfile, "w")  
+    save_path2=f'/Users/julieyiu/pak/pak/labfiles/new'
+    completeName2=os.path.join(save_path2, newfile)
+    newfile = open(completeName2, "w")  
     for line in fr:
         newfile.write(line)
     newfile.close()   
@@ -24,8 +28,13 @@ def convert_points(seconds):
 
 def extract_audio(wav, labfile, newfolder):
     global samplerate
-    samplerate, data = wavfile.read(wav)
-    sf = open(labfile, "r")
+    save_pathWav="/Users/julieyiu/pak/pak/audioraw/wav"
+    completeNameWav=os.path.join(save_pathWav, wav)
+    samplerate, data = wavfile.read(completeNameWav)
+
+    save_pathLab="/Users/julieyiu/pak/pak/labfiles/new"
+    completeNameLab=os.path.join(save_pathLab, labfile)
+    sf = open(completeNameLab, "r")
     sfr=sf.readlines()
 
     sfr_new=[]
@@ -34,7 +43,7 @@ def extract_audio(wav, labfile, newfolder):
         list=line.split(" ")
         sfr_new.append(list)
 
-    save_path=f'/Users/julieyiu/Downloads/pak/{newfolder}'
+    save_path=f'/Users/julieyiu/pak/pak/{newfolder}'
     for lines in sfr_new:
         filename=lines[2].replace('\n', '')
         completeName = os.path.join(save_path, filename)
@@ -45,7 +54,6 @@ def extract_audio(wav, labfile, newfolder):
     print("Done")
 
 #execute one by one
-
-#read_newlabfile("4.lab", "n4.lab")
-extract_audio("4.wav", "n4.lab", "4wav")
+#read_newlabfile("8.lab", "n8.lab")
+extract_audio("8.wav", "n8.lab", "8wav")
 
