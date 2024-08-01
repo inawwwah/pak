@@ -54,6 +54,6 @@ def extract_audio(wav, labfile, newfolder):
     print("Done")
 
 #execute one by one
-#read_newlabfile("8.lab", "n8.lab")
-extract_audio("8.wav", "n8.lab", "8wav")
+#read_newlabfile("13.lab", "n13.lab")
+extract_audio("13.wav", "n13.lab", "13wav")
 
